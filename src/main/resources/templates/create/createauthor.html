@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>AUTHOR || ADD</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/fragment :: js_link" ></div>
+    <div th:replace="fragments/fragment :: css_link" ></div>
+    <div th:replace="fragments/fragment :: ganeric_css" ></div>
+    <div th:replace="fragments/fragment :: navbar " ></div>
+    <div th:replace="fragments/fragment :: homecss " ></div>
+    <div th:replace="fragments/fragment :: formCss" ></div>
+    <div class="main">
+        <button>
+            <a th:href="@{/author}">Back</a>
+        </button>
+        <div class="form-wrap">
+            <form>
+
+                <h1>Add Author</h1>
+                <label for="name">Name</label>
+                <input type="text" placeholder="Enter name" id="name">
+
+                <label for="email">Email</label>
+                <input type="email" placeholder="Enter email" id="email">
+
+                <label for="mobile">Mobile Number</label>
+                <input type="number" placeholder="Enter mobile number" id="mobile">
+
+                <input type="submit" value="Save">
+                <input type="reset" value="Reset">
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

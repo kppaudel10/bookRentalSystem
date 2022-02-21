@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BOOK || HOME</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/fragment :: js_link" ></div>
+    <div th:replace="fragments/fragment :: css_link" ></div>
+    <div th:replace="fragments/fragment :: ganeric_css" ></div>
+    <div th:replace="fragments/fragment :: navbar " ></div>
+    <div th:replace="fragments/fragment :: homecss " ></div>
+    <div class="main">
+        <h2 class="head_caption">Book Details</h2>
+        <button>
+            <a th:href="@{/book/add}">Create</a>
+        </button>
+    </div>
+</div>
+</body>
+</html>

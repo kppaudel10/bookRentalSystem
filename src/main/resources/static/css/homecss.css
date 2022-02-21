@@ -1,0 +1,17 @@
+.head_caption{
+    position: absolute;
+    top: 40px;
+    left: 600px;
+}
+button{
+    position: absolute;
+    font-size: 18px;
+    top: 60px;
+    left: 1000px;
+    width: 60px;
+    height: 40px;
+    background: #1b1b1b;
+}
+button a{
+    color: white;
+}

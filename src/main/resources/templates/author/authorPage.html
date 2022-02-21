@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>AUTHOR || HOME</title>
+<!--    <link rel="stylesheet" href="css/homecss.css">-->
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/fragment :: js_link" ></div>
+    <div th:replace="fragments/fragment :: css_link" ></div>
+    <div th:replace="fragments/fragment :: ganeric_css" ></div>
+    <div th:replace="fragments/fragment :: navbar " ></div>
+    <div th:replace="fragments/fragment :: homecss " ></div>
+    <div class="main">
+        <h2 class="head_caption">Author Details</h2>
+        <button>
+            <a th:href="@{/author/signup}">Create</a>
+        </button>
+    </div>
+</div>
+</body>
+</html>
