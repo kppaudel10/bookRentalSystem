@@ -14,20 +14,20 @@
     <div th:replace="fragments/fragment :: formCss" ></div>
     <div class="main">
         <button>
-            <a th:href="@{/author}">Back</a>
+            <a th:href="@{/author/home}">Back</a>
         </button>
         <div class="form-wrap">
-            <form>
-
+            <form th:action="@{/author/add}" th:method="post" th:object="${authorDto}">
                 <h1>Add Author</h1>
+                <input type="hidden" name="id" th:field="*{id}">
                 <label for="name">Name</label>
-                <input type="text" placeholder="Enter name" id="name">
+                <input type="text" placeholder="Enter name" id="name" th:field="*{name}">
 
                 <label for="email">Email</label>
-                <input type="email" placeholder="Enter email" id="email">
+                <input type="email" placeholder="Enter email" id="email" th:field="*{email}">
 
                 <label for="mobile">Mobile Number</label>
-                <input type="number" placeholder="Enter mobile number" id="mobile">
+                <input type="number" placeholder="Enter mobile number" id="mobile" th:field="*{mobile_number}">
 
                 <input type="submit" value="Save">
                 <input type="reset" value="Reset">

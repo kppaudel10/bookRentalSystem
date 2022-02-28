@@ -29,26 +29,19 @@
             <a th:href="@{/member/home}">Back</a>
         </button>
         <div class="form-wrap">
-            <form th:action="@{/member/add}" th:method="post" th:object="${memberDto}">
-                <h1>Add New Member</h1>
+            <form th:action="@{/member/update}" th:method="post">
+                <h1>Update Member Details</h1>
                 <label for="name">Name</label>
-                <input type="text" placeholder="Enter your name" id="name"
-                th:field="*{name}">
-                <div class="errormsg">
-                <p th:if="${#fields.hasErrors('name')}" th:errorrs ="*{name}"></p>
-                </div>
+                <input type="text" placeholder="Enter your name" id="name">
 
                 <label for="email">Email</label>
-                <input type="email" placeholder="Enter your email" id="email"
-                th:field="*{email}">
+                <input type="email" placeholder="Enter your email" id="email">
 
                 <label for="address">Address</label>
-                <input type="text" placeholder="Enter your address" id="address"
-                       th:field="*{address}">
+                <input type="text" placeholder="Enter your address" id="address">
 
                 <label for="mobile">Mobile Number</label>
-                <input type="number" placeholder="Enter mobile number" id="mobile"
-                       th:field="*{contact}">
+                <input type="number" placeholder="Enter mobile number" id="mobile">
 
                 <input type="submit" value="Save">
                 <input type="reset" value="Reset">

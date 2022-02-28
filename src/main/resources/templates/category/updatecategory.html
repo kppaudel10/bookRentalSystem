@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>AUTHOR || ADD</title>
+    <title>CATEGORY || UPDATE</title>
 </head>
 <body>
 <div class="container">
@@ -17,10 +17,12 @@
             <a th:href="@{/category/home}">Back</a>
         </button>
         <div class="form-wrap">
-            <form th:action="@{/category/add}" th:method="post" th:object="${categoryDto}">
-                <h1>Add Category</h1>
+            <form th:action="@{/category/update/{id}(id =${categoryDto.id})}" th:method="post" th:object="${categoryDto}" >
+                <h1>Update Category Details</h1>
+
+                <input type="hidden" th:field="*{id}">
                 <label for="name">Title</label>
-                <input type="text" placeholder="Enter title" id="name" th:field="*{title}">
+                <input type="text"  id="name" th:field="*{title}">
 
                 <label for="des">Description</label><br>
                 <textarea id="des" cols="74" rows="5" th:field="*{description}">

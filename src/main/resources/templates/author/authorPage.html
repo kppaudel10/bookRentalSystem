@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>AUTHOR || HOME</title>
-<!--    <link rel="stylesheet" href="css/homecss.css">-->
+    <link th:href="@{/css/table.css}" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
@@ -13,10 +13,33 @@
     <div th:replace="fragments/fragment :: navbar " ></div>
     <div th:replace="fragments/fragment :: homecss " ></div>
     <div class="main">
-        <h2 class="head_caption">Author Details</h2>
-        <button>
-            <a th:href="@{/author/signup}">Create</a>
-        </button>
+        <h2 class="head_caption"><u><i>Author Details</i></u></h2>
+           <button>
+               <a  th:href="@{/author/signup}">Create</a>
+           </button>
+        <table id="members">
+            <thead>
+            <tr>
+                <th>S.N</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i,loop:  ${data}">
+                <td th:text="${loop.count}"></td>
+                <td th:text="${i.name}"></td>
+                <td th:text="${i.email}"></td>
+                <td th:text="${i.mobile_number}"></td>
+                <td>
+                    <a class="button1" th:href="@{/author/update/{id}(id =${i.id})}">Update</a>
+                    <a class="button2" th:href="@{/author/delete/{id}(id=${i.id})}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>

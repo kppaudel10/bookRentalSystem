@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>BOOK || HOME</title>
+    <link th:href="@{/css/table.css}" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
@@ -16,6 +17,27 @@
         <button>
             <a th:href="@{/book/add}">Create</a>
         </button>
+        <table id="members">
+            <thead>
+            <tr>
+                <th>S.N</th>
+                <th>Name</th>
+                <th>Isbn</th>
+                <th>Stock Count</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i,loop:  ${data}">
+<!--                <td th:text="${loop.count}"></td>-->
+<!--                <td th:text="${i.name}"></td>-->
+<!--                <td th:text="${i.email}"></td>-->
+<!--                <td th:text="${i.contact}"></td>-->
+<!--                <td th:text="${i.address}"></td>-->
+                <td>EDIT | DEL</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>

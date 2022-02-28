@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>AUTHOR || ADD</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/fragment :: js_link" ></div>
+    <div th:replace="fragments/fragment :: css_link" ></div>
+    <div th:replace="fragments/fragment :: ganeric_css" ></div>
+    <div th:replace="fragments/fragment :: navbar " ></div>
+    <div th:replace="fragments/fragment :: homecss " ></div>
+    <div th:replace="fragments/fragment :: formCss" ></div>
+    <div class="main">
+        <button>
+            <a th:href="@{/book/home}">Back</a>
+        </button>
+        <div class="form-wrap">
+            <form th:action="@{/book/add}" th:method="post" th:object="${categoryList},${bookDto}">
+                <h1>Add Book</h1>
+                <label for="category">Choose a car:</label>
+                <select name="Choose book category" id="category">
+
+                </select>
+                <label for="name">Name </label>
+                <input type="text" placeholder="Enter name" id="name">
+
+                <label for="page">No. of pages</label>
+                <input type="number" placeholder="Enter number of pages" id="page">
+
+                <label for="isbn">Isbn</label>
+                <input type="text" placeholder="Enter book isbn" id="isbn">
+
+                <label for="rating">Rating</label>
+                <input type="number" placeholder="Enter book rating" id="rating">
+
+                <label for="stock_count">Stock count</label>
+                <input type="number" placeholder="Enter book stock availability " id="stock_count">
+
+
+                <label for="published_date">No. of pages</label>
+                <input type="date" placeholder="Enter book published date" id="published_date">
+
+                <label for="photo_link">photo</label>
+                <input type="file" placeholder="upload cover photo" id="photo_link">
+
+                <input type="submit" value="Save">
+                <input type="reset" value="Reset">
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

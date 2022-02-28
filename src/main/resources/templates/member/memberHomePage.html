@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>MEMBER || HOME</title>
+    <link th:href="@{/css/table.css}" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
@@ -13,9 +14,34 @@
     <div th:replace="fragments/fragment :: homecss " ></div>
     <div class="main">
         <h2 class="head_caption">Member Details</h2>
-        <button>
-            <a th:href="@{/member/add}">Create</a>
+        <button >
+            <a th:href="@{/member/memberForm}">Create</a>
         </button>
+        <table id="members">
+            <thead>
+            <tr>
+                <th>S.N</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Address</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i,loop:  ${data}">
+                <td th:text="${loop.count}"></td>
+                <td th:text="${i.name}"></td>
+                <td th:text="${i.email}"></td>
+                <td th:text="${i.contact}"></td>
+                <td th:text="${i.address}"></td>
+                <td>
+                    <a class="button1" th:href="@{/member/update}">Update</a>
+                    <a class="button2" th:href="@{/member/home}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>

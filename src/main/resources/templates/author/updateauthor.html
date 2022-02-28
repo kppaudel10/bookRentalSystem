@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>AUTHOR || ADD</title>
+    <title>AUTHOR || UPDATE</title>
 </head>
 <body>
 <div class="container">
@@ -14,18 +14,21 @@
     <div th:replace="fragments/fragment :: formCss" ></div>
     <div class="main">
         <button>
-            <a th:href="@{/category/home}">Back</a>
+            <a th:href="@{/author/home}">Back</a>
         </button>
         <div class="form-wrap">
-            <form th:action="@{/category/add}" th:method="post" th:object="${categoryDto}">
-                <h1>Add Category</h1>
-                <label for="name">Title</label>
-                <input type="text" placeholder="Enter title" id="name" th:field="*{title}">
+            <form th:action="@{/author/update/{id}(id = ${authorDto.id})}" th:method="post" th:object="${authorDto}">
+                <h1>Update Author Details</h1>
+                <input type="hidden" th:field="*{id}">
+                <label for="name">Name</label>
+                <input type="text"  id="name" th:field="*{name}">
 
-                <label for="des">Description</label><br>
-                <textarea id="des" cols="74" rows="5" th:field="*{description}">
-                </textarea>
-                <br>
+                <label for="email">Email</label>
+                <input type="email" id="email" th:field="*{email}">
+
+                <label for="mobile">Mobile Number</label>
+                <input type="number" id="mobile" th:field="*{mobile_number}">
+
                 <input type="submit" value="Save">
                 <input type="reset" value="Reset">
             </form>

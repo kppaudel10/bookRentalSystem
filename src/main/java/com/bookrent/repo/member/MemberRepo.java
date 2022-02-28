@@ -1,4 +1,4 @@
-package com.bookrent.repo;
+package com.bookrent.repo.member;
 
 import com.bookrent.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;

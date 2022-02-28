@@ -1,4 +1,4 @@
-package com.bookrent.controller;
+package com.bookrent.controller.returnbook;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

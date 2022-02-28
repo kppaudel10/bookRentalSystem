@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CATEGORY || HOME</title>
-    <!--    <link rel="stylesheet" href="css/homecss.css">-->
+    <link th:href="@{/css/table.css}" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
@@ -15,8 +15,29 @@
     <div class="main">
         <h2 class="head_caption">Category Details</h2>
         <button>
-            <a th:href="@{/category/add}">Create</a>
+            <a th:href="@{/category/addDetails}">Create</a>
         </button>
+        <table id="members">
+            <thead>
+            <tr>
+                <th>S.N</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i,loop:  ${data}">
+                <td th:text="${loop.count}"></td>
+                <td th:text="${i.title}"></td>
+                <td th:text="${i.description}"></td>
+                <td>
+                    <a class="button1" th:href="@{/category/update/{id} (id = ${i.id})}">Update</a>
+                    <a class="button2" th:href="@{/category/delete/{id} (id = ${i.id})}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>

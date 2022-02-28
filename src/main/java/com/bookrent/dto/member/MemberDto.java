@@ -1,4 +1,4 @@
-package com.bookrent.dto;
+package com.bookrent.dto.member;
 
 import lombok.*;
 
