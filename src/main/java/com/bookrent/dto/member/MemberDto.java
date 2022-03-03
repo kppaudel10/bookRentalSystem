@@ -2,9 +2,6 @@ package com.bookrent.dto.member;
 
 import lombok.*;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,16 +9,17 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class MemberDto {
     private Integer id;
-    @NotNull
-    @NotEmpty(message = "name cannot be empty")
+    //    @NotNull
+//    @NotEmpty(message = "name cannot be empty")
     private String name;
 
-    @NotEmpty(message = "email cannot be empty")
+    //    @NotEmpty(message = "email cannot be empty")
     private String email;
 
-    @NotEmpty(message = "address cannot be empty")
+    //    @NotEmpty(message = "contact cannot be empty")
+    private String contact;
+
+    //    @NotEmpty(message = "address cannot be empty")
     private String address;
 
-    @NotEmpty(message = "contact cannot be empty")
-    private String contact;
 }

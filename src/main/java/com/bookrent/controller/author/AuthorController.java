@@ -46,8 +46,8 @@ public class AuthorController {
     @GetMapping("/update/{id}")
     public String getAuthorUpdatePage(@PathVariable Integer id, Model model) {
         model.addAttribute("authorDto", authorService.findById(id));
-        AuthorDto authorDto = authorService.findById(id);
-        System.out.println(authorDto.getName());
+//        AuthorDto authorDto = authorService.findById(id);
+//        System.out.println(authorDto.getName());
         return "author/updateauthor";
     }
 

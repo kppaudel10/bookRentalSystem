@@ -3,6 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>AUTHOR || ADD</title>
+    <style>
+        select{
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        *{margin: 0; padding: 0;}
+        body{background:  #d3eeee; font-family: sans-serif;}
+
+        .form-wrap {
+            width: 500px;
+            background: #a0e7e7;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            position: absolute;
+            margin-top: 104px;
+            margin-left: 2px;
+        }
+            /*transform: translate(-50%, -50%);}*/
+        h1{text-align: center;
+            color: rgba(17, 17, 24, 0.94); font-weight: normal; margin-bottom: 20px;}
+
+        input{width: 100%;
+            background: rgb(255, 255, 255); border: 1px solid rgba(17, 17, 24, 0.94);
+            border-radius: 3px; padding: 6px 15px; box-sizing: border-box;
+            margin-bottom: 20px; font-size: 16px; color: rgba(9, 9, 16, 0.94);}
+
+        input[type="submit"]{
+            background: blue;
+            width: 80px;
+            height: 30px;
+        }
+        input[type="reset"]{
+            background: red;
+            width: 70px;
+            height: 30px;
+        }
+
+        ::placeholder{
+            color: #1e1e1e;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -11,18 +52,21 @@
     <div th:replace="fragments/fragment :: ganeric_css" ></div>
     <div th:replace="fragments/fragment :: navbar " ></div>
     <div th:replace="fragments/fragment :: homecss " ></div>
-    <div th:replace="fragments/fragment :: formCss" ></div>
+<!--    <div th:replace="fragments/fragment :: formCss" ></div>-->
     <div class="main">
         <button>
             <a th:href="@{/book/home}">Back</a>
         </button>
         <div class="form-wrap">
-            <form th:action="@{/book/add}" th:method="post" th:object="${categoryList},${bookDto}">
-                <h1>Add Book</h1>
-                <label for="category">Choose a car:</label>
-                <select name="Choose book category" id="category">
-
+            <form th:action="@{/book/add}" th:method="post"
+                  th:object="${bookDto}">
+                <h1>Add New Book</h1>
+                <label>Select Category: </label>
+                <select th:field="*{categoryId}">
+                    <option value="default">Select a category</option>
+                    <option th:each="category :${categoryList}" th:value="${category.getId()}" th:text="${category.getTitle() }"/>
                 </select>
+                <br>
                 <label for="name">Name </label>
                 <input type="text" placeholder="Enter name" id="name">
 

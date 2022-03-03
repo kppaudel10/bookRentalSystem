@@ -4,10 +4,7 @@ import com.bookrent.dto.member.MemberDto;
 import com.bookrent.service.impl.MemberServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -46,24 +43,34 @@ public class MemberController {
         return "redirect:/member/home";
     }
 
-    @GetMapping("/update")
-    public String getAuthorUpdatePage(Model model){
-        model.addAttribute("updateDto",memberServiceimpl.findById(205));
+    @GetMapping("/update/{id}")
+    public String getAuthorUpdatePage(@PathVariable Integer id, Model model){
+        model.addAttribute("memberDto",memberServiceimpl.findById(id));
         return "member/updatemember";
     }
 
-    @PostMapping("/update")
-    public String getUpdate(@ModelAttribute MemberDto memberDto , RedirectAttributes redirectAttributes){
+    @PostMapping("/update/{id}")
+    public String getUpdate(@PathVariable Integer id , @ModelAttribute("memberDto")
+            MemberDto memberDto ,RedirectAttributes redirectAttributes){
         try {
-            //delete old data from datbase
-//            authorService.deleteById(authorDto.getId());
-            //then save into database
-            memberServiceimpl.update(memberDto);
-            System.out.println("save into database");
-        }catch (Exception e){
-            redirectAttributes.addFlashAttribute("message","author creation failed.");
+            MemberDto oldMemberDto = memberServiceimpl.findById(id);
+            oldMemberDto.setName(memberDto.getName());
+            oldMemberDto.setEmail(memberDto.getEmail());
+            oldMemberDto.setAddress(memberDto.getAddress());
+            oldMemberDto.setContact(memberDto.getContact());
+            memberServiceimpl.update(oldMemberDto);
+
+
+        }catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", "author creation failed.");
             e.printStackTrace();
         }
+        return "redirect:/member/home";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String getDelete(@PathVariable Integer id){
+        memberServiceimpl.deleteById(id);
         return "redirect:/member/home";
     }
 }

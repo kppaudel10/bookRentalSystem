@@ -4,6 +4,7 @@ import com.bookrent.dto.member.MemberDto;
 import com.bookrent.entity.Member;
 import com.bookrent.repo.member.MemberRepo;
 import com.bookrent.service.member.MemberService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<MemberDto> findAll() {
-        return memberRepo.findAll().stream().map(member -> {
+        return memberRepo.findAll(Sort.by(Sort.Direction.ASC,"id")).stream().map(member -> {
             return MemberDto.builder()
                     .id(member.getId())
                     .address(member.getAddress())
@@ -55,6 +56,7 @@ public class MemberServiceImpl implements MemberService {
                     .name(member.getFull_name())
                     .contact(member.getMobile_no())
                     .email(member.getEmail())
+                    .address(member.getAddress())
                     .build();
         }
         return null;
@@ -67,7 +69,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void update(MemberDto memberDto) {
-
+        Integer id = memberDto.getId();
+        memberRepo.updateName(memberDto.getName(),id);
+        memberRepo.updateEmail(memberDto.getEmail(),id);
+        memberRepo.updateMobile(memberDto.getContact(),id);
+        memberRepo.updateAddress(memberDto.getAddress(),id);
     }
 
 
