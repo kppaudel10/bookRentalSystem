@@ -1,4 +1,5 @@
 package com.bookrent.enums;
 
-public enum Rentstatus {
+public enum RentStatus {
+    RENT , RETURN
 }

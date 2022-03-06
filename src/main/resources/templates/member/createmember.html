@@ -19,7 +19,7 @@
         </button>
         <div class="form-wrap">
             <form th:action="@{/member/add}" th:method="post" th:object="${memberDto}">
-                <h1>Add New Member</h1>
+                <h1><u><i>Add New Member</i></u></h1>
                 <label for="name">Name</label>
                 <input type="text" placeholder="Enter name" id="name"
                 th:field="*{name}">

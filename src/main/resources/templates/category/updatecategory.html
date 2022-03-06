@@ -18,7 +18,7 @@
         </button>
         <div class="form-wrap">
             <form th:action="@{/category/update/{id}(id =${categoryDto.id})}" th:method="post" th:object="${categoryDto}" >
-                <h1>Update Category Details</h1>
+                <h1><u><i>Update Category Details</i></u></h1>
 
                 <input type="hidden" th:field="*{id}">
                 <label for="name">Title</label>

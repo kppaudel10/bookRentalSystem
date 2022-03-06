@@ -1,4 +1,5 @@
 package com.bookrent.enums;
 
-public class ActiveClosed {
+public enum ActiveClosed {
+    ACTIVE ,CLOSED
 }

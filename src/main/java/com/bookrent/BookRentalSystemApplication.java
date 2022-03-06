@@ -1,7 +1,5 @@
 package com.bookrent;
 
-import com.bookrent.repo.author.AuthorRepo;
-import com.bookrent.service.impl.AuthorServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>RETURN BOOK || HOME</title>
+    <title>RETURN || BOOK</title>
+    <link th:href="@{/css/table.css}" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
@@ -10,8 +11,33 @@
     <div th:replace="fragments/fragment :: css_link" ></div>
     <div th:replace="fragments/fragment :: ganeric_css" ></div>
     <div th:replace="fragments/fragment :: navbar " ></div>
+    <div th:replace="fragments/fragment :: homecss " ></div>
     <div class="main">
-        <h2>return book Page</h2>
+        <h2 class="head_caption"><u><i>Rent Book Details</i></u></h2>
+        <button>
+            <a th:href="@{/rentbook/rent}">Return</a>
+        </button>
+        <table id="members">
+            <thead>
+            <tr>
+                <th>S.N</th>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+<!--            <tr th:each="i,loop:  ${transactionList}">-->
+<!--                <td th:text="${loop.count}"></td>-->
+<!--                <td th:text="${i.member.getFull_name()}"></td>-->
+<!--                <td th:text="${i.bookCode}"></td>-->
+<!--                <td>-->
+<!--                    <a class="button1" th:href="@{/rentbook/view/{id}(id = ${i.id})}">View</a>-->
+<!--                    &lt;!&ndash;          <a class="button2" th:href="@{/rentbook/home}">Delete</a>&ndash;&gt;-->
+<!--                </td>-->
+<!--            </tr>-->
+            </tbody>
+        </table>
     </div>
 </div>
 </body>

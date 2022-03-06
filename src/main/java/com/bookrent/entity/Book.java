@@ -1,9 +1,11 @@
 package com.bookrent.entity;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -31,15 +33,25 @@ public class Book {
     private Double rating;
 
     @Column(nullable = false)
+    private Integer numberOfPage;
+
+    @Column(nullable = false)
     private Integer stockCount;
+
+    @Column(nullable = false)
+    private String bookCode;
+
+    @Column(name = "file_path")
+    private String coverPhotoPath;
     @ManyToMany
     @JoinTable(
             name = "brs_book_author",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
-    Set<Author> authorSet;
+   private List<Author> authorSet;
 
     @OneToOne
-    @JoinColumn(name = "category_id",referencedColumnName = "id")
-    Category category;
+    @JoinColumn(name = "category_id",referencedColumnName = "id" ,foreignKey = @ForeignKey(name = "FK_Book_Category"))
+   private Category category;
+
 }

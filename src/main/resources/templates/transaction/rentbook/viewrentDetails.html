@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>VIEW || RENTED_BOOK</title>
+    <link th:href="@{/css/table.css}" rel="stylesheet"/>
+    <style>
+        .memberDetails{
+            margin-top: 115px;
+            position: absolute;
+        }
+        .bookDetails{
+            margin-top: 260px;
+            position: absolute;
+        }
+        .authorDetails{
+            margin-top: 310px;
+            position: absolute;
+        }
+        .image{
+            margin-top: 370px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/fragment :: js_link" ></div>
+    <div th:replace="fragments/fragment :: css_link" ></div>
+    <div th:replace="fragments/fragment :: ganeric_css" ></div>
+    <div th:replace="fragments/fragment :: navbar " ></div>
+    <div th:replace="fragments/fragment :: homecss " ></div>
+    <div class="main">
+        <h2 class="head_caption"><u><i>Book Details</i></u></h2>
+        <button>
+            <a th:href="@{/book/home}">Back</a>
+        </button>
+        <ul type="none">
+            <div class="memberDetails">
+                <th:block>
+                    <li th:text="'Member Name :'+${memberDetails.getName()}"></li>
+                    <li th:text="'Member Email '+${memberDetails.getEmail()}"></li>
+                    <li th:text="'Member Contact:'+${memberDetails.getContact()}"></li>
+                </th:block>
+            </div>
+            <div class="bookDetails">
+                <th:block>
+                    <li th:text="'Book Name :'+${bookDetails.getName()}"></li>
+                    <li th:text="'Book Code: '+${transactionList.get}"></li>
+                </th:block>
+            </div>
+            <div class="authorDetails">
+                <th:block th:each="i : ${authorData}"class="authorList" type="none">
+                    <li th:text="'Author Name         :'+${i.name}"class="authorName"></li>
+                </th:block>
+            </div>
+            <div class="image">
+
+                <h3>Cover Photo</h3>
+                <img th:src="${coverPhotoPath}" height="500px" width="500px">
+            </div>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

@@ -18,7 +18,7 @@
         </button>
         <div class="form-wrap">
             <form th:action="@{/category/add}" th:method="post" th:object="${categoryDto}">
-                <h1>Add Category</h1>
+                <h1><u><i>Add Category</i></u></h1>
                 <label for="name">Title</label>
                 <input type="text" placeholder="Enter title" id="name" th:field="*{title}">
 

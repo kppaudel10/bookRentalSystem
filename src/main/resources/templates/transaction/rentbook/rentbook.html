@@ -1,10 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title> RENT || BOOK</title>
+    <style>
+        select{
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        *{margin: 0; padding: 0;}
+        body{background:  #d3eeee; font-family: sans-serif;}
+
+        .form-wrap {
+            width: 500px;
+            background: #a0e7e7;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            position: absolute;
+            margin-top: 104px;
+            margin-left: 2px;
+        }
+        /*transform: translate(-50%, -50%);}*/
+        h1{text-align: center;
+            color: rgba(17, 17, 24, 0.94); font-weight: normal; margin-bottom: 20px;}
+
+        input{width: 100%;
+            background: rgb(255, 255, 255); border: 1px solid rgba(17, 17, 24, 0.94);
+            border-radius: 3px; padding: 6px 15px; box-sizing: border-box;
+            margin-bottom: 20px; font-size: 16px; color: rgba(9, 9, 16, 0.94);}
+
+        input[type="submit"]{
+            background: blue;
+            width: 80px;
+            height: 30px;
+        }
+        input[type="reset"]{
+            background: red;
+            width: 70px;
+            height: 30px;
+        }
+
+        ::placeholder{
+            color: #1e1e1e;
+        }
+        .multipleSelect{
+            margin-left: 140px;
+            width: 200px;
+            height: 100%;
+        }
+    </style>
+    <script>
+        window.onmousedown = function (e) {
+            var el = e.target;
+            if (el.tagName.toLowerCase() == 'option' && el.parentNode.hasAttribute('multiple')) {
+                e.preventDefault();
+
+                // toggle selection
+                if (el.hasAttribute('selected')) el.removeAttribute('selected');
+                else el.setAttribute('selected', '');
+
+                // hack to correct buggy behavior
+                var select = el.parentNode.cloneNode(true);
+                el.parentNode.parentNode.replaceChild(select, el.parentNode);
+            }
+        }
+
+    </script>
 </head>
 <body>
-$END$
+<div class="container">
+    <div th:replace="fragments/fragment :: js_link" ></div>
+    <div th:replace="fragments/fragment :: css_link" ></div>
+    <div th:replace="fragments/fragment :: ganeric_css" ></div>
+    <div th:replace="fragments/fragment :: navbar " ></div>
+    <div th:replace="fragments/fragment :: homecss " ></div>
+    <!--    <div th:replace="fragments/fragment :: formCss" ></div>-->
+    <div class="main">
+        <button>
+            <a th:href="@{/rentbook/home}">Back</a>
+        </button>
+        <div class="form-wrap">
+            <form th:action="@{/rentbook/add}" th:method="post" th:object="${transactionDto}" >
+                <h1><u><i>Rent Book</i></u></h1>
+                <label>Select Category: </label>
+                <select th:field="*{book}">
+                    <option value="default">Select book</option>
+                    <th:block th:each="book :${bookList}">
+                        <option th:value="${book.getId()}" th:text="${book.getName() }"></option>
+                    </th:block>
+                </select>
+                <br>
+                <label>Select Member: </label>
+                <select th:field="*{member}">
+                    <option value="default">Select member</option>
+                    <th:block th:each="member :${memberList}">
+                        <option th:value="${member.id}" th:text="${member.name }"></option>
+                    </th:block>
+                </select>
+                <br>
+                <label>Select book code: </label>
+                <select th:field="*{bookCode}">
+                    <option value="default">Select a bookCode</option>
+                    <th:block th:each="code :${bookCodeList}">
+                        <option th:value="${code.bookCode}" th:text="${code.bookCode}"></option>
+                    </th:block>
+                </select>
+                <br>
+                <label for="numberOfDay">Number of Days </label>
+                <input type="number" placeholder="number of day" id="numberOfDay" th:field="*{noOfDays}">
+
+                <input type="submit" value="Save">
+                <input type="reset" value="Reset">
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

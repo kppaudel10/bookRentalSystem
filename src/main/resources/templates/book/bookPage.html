@@ -13,7 +13,7 @@
     <div th:replace="fragments/fragment :: navbar " ></div>
     <div th:replace="fragments/fragment :: homecss " ></div>
     <div class="main">
-        <h2 class="head_caption">Book Details</h2>
+        <h2 class="head_caption"><u><i>Book Details</i></u></h2>
         <button>
             <a th:href="@{/book/add}">Create</a>
         </button>
@@ -24,19 +24,22 @@
                 <th>Name</th>
                 <th>Isbn</th>
                 <th>Stock Count</th>
+                <th>Rating</th>
+                <th>Published Date</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="i,loop:  ${data}">
-<!--                <td th:text="${loop.count}"></td>-->
-<!--                <td th:text="${i.name}"></td>-->
-<!--                <td th:text="${i.email}"></td>-->
-<!--                <td th:text="${i.contact}"></td>-->
-<!--                <td th:text=""></td>-->
+                <td th:text="${loop.count}"></td>
+                <td th:text="${i.name}"></td>
+                <td th:text="${i.isbn}"></td>
+                <td th:text="${i.stockCount}"></td>
+                <td th:text="${i.rating}"></td>
+                <td th:text="${i.published_date}"></td>
                 <td>
-                    <a class="button1" th:href="">Update</a>
-                    <a class="button2" th:href="">Delete</a>
+                    <a class="button1" th:href="@{/book/view/{id}(id =${i.id})}">View</a>
+                    <a class="button2" th:href="@{/book/delete/{id}(id =${i.id})}">Delete</a>
                 </td>
             </tr>
             </tbody>
