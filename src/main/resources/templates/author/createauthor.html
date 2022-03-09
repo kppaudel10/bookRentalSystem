@@ -3,13 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>AUTHOR || ADD</title>
-    <style>
-        .display_msg{
-            margin-top: 0px;
-            color: red;
-            font-size: 15px;
-        }
-    </style>
+    <link th:href="@{/css/displayError.css}" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
@@ -37,7 +31,8 @@
 
                 <label for="mobile">Mobile Number</label>
                 <input type="number" placeholder="Enter mobile number" id="mobile" th:field="*{mobile_number}">
-                <p class="display_msg" th:if="${#fields.hasErrors('mobile_number')}" th:errors="*{mobile_number}"></p>
+                <p class="display_msg" th:if="${#fields.hasErrors('mobile_number')}"
+                   th:errors="*{mobile_number}"></p>
 
                 <input type="submit" value="Save">
                 <input type="reset" value="Reset">

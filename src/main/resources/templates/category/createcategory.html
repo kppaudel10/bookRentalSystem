@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CATEGORY || ADD</title>
+    <link th:href="@{/css/displayError.css}" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
@@ -21,15 +22,20 @@
                 <h1><u><i>Add Category</i></u></h1>
                 <label for="name">Title</label>
                 <input type="text" placeholder="Enter title" id="name" th:field="*{title}">
+                <p class="display_msg" th:if="${#fields.hasErrors('title')}"
+                   th:errors="*{title}"></p>
 
                 <label for="des">Description</label><br>
                 <textarea id="des" cols="74" rows="5" th:field="*{description}">
                 </textarea>
+                <p class="display_msg" th:if="${#fields.hasErrors('description')}"
+                   th:errors="*{description}"></p>
+
                 <br>
                 <input type="submit" value="Save">
                 <input type="reset" value="Reset">
             </form>
-
+            <h4 th:text="*{message}"></h4>
         </div>
     </div>
 </div>

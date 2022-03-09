@@ -4,9 +4,11 @@ import com.bookrent.dto.member.MemberDto;
 import com.bookrent.service.impl.MemberServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller
@@ -32,17 +34,23 @@ public class MemberController {
         return "member/createmember";
     }
     @PostMapping ("/add")
-    public String getMemberAddPage(@ModelAttribute MemberDto memberDto, RedirectAttributes redirectAttributes) {
-        try {
-            memberDto = memberServiceimpl.save(memberDto);
-        }catch (Exception e){
-            redirectAttributes.addFlashAttribute("message","member creation failed.");
-            return "redirect:/member/home";
+    public String getMemberAddPage(@Valid @ModelAttribute("memberDto") MemberDto memberDto,
+                                   BindingResult bindingResult,Model model) {
+        MemberDto memberDto1 = null;
+        if (!bindingResult.hasErrors()){
+            try {
+            memberDto1 = memberServiceimpl.save(memberDto);
+            }catch (Exception e){
+                model.addAttribute("message","member creation failed.");
+//            return "redirect:/member/home";
+            }
+            if (memberDto1 != null){
+               model.addAttribute("message","member created successfully.");
+            }
         }
-        if (memberDto != null){
-            redirectAttributes.addFlashAttribute("message","member created");
-        }
-        return "redirect:/member/home";
+        model.addAttribute("memberDto",memberDto);
+//        return "member/createmember";
+        return "member/createmember";
     }
 
     @GetMapping("/update/{id}")

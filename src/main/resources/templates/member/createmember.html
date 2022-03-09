@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Member || ADD</title>
-
+    <link th:href="@{/css/displayError.css}" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
@@ -23,20 +23,26 @@
                 <label for="name">Name</label>
                 <input type="text" placeholder="Enter name" id="name"
                 th:field="*{name}">
-<!--                <div class="errormsg">-->
-<!--                <p th:if="${#fields.hasErrors('name')}" th:errorrs ="*{name}"></p>-->
-<!--                </div>-->
+                <p class="display_msg" th:if="${#fields.hasErrors('name')}"
+                   th:errors="*{name}"></p>
+
                 <label for="email">Email</label>
                 <input type="email" placeholder="Enter email" id="email"
                 th:field="*{email}">
+                <p class="display_msg" th:if="${#fields.hasErrors('email')}"
+                   th:errors="*{email}"></p>
 
                 <label for="address">Address</label>
                 <input type="text" placeholder="Enter address" id="address"
                        th:field="*{address}">
+                <p class="display_msg" th:if="${#fields.hasErrors('address')}"
+                   th:errors="*{address}"></p>
 
                 <label for="mobile">Mobile Number</label>
                 <input type="number" placeholder="Enter mobile number" id="mobile"
                        th:field="*{contact}">
+                <p class="display_msg" th:if="${#fields.hasErrors('contact')}"
+                   th:errors="*{contact}"></p>
 
                 <input type="submit" value="Save">
                 <input type="reset" value="Reset">

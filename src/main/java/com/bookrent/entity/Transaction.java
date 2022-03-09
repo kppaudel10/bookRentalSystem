@@ -15,11 +15,12 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(
-        name = "brs_transaction",
-        uniqueConstraints = @UniqueConstraint(
-                name="unique_code",
-                columnNames = "book_code"
-        )
+        name = "brs_transaction"
+//        ,
+//        uniqueConstraints = @UniqueConstraint(
+//                name="unique_code",
+//                columnNames = "book_code"
+//        )
 )
 public class Transaction {
     @Id

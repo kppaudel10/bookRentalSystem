@@ -36,9 +36,7 @@ public class AuthorController {
     @PostMapping("/add")
     public String getAuthorAddPage(@Valid @ModelAttribute("authorDto") AuthorDto authorDto,
                                    BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("message", "Failed to create Author.");
-        } else {
+        if (!bindingResult.hasErrors()) {
             try {
                 //save into database
                 authorDto = authorService.save(authorDto);
@@ -59,7 +57,7 @@ public class AuthorController {
     public String getAuthorUpdatePage(@PathVariable Integer id, Model model) {
         model.addAttribute("authorDto", authorService.findById(id));
 //        AuthorDto authorDto = authorService.findById(id);
-//        System.out.println(authorDto.getName());
+//        System.out.println(authorDto.getName());.
         return "author/updateauthor";
     }
 

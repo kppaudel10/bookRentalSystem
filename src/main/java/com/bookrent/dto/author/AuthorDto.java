@@ -24,6 +24,8 @@ public class AuthorDto {
     private String email;
 
     @NotEmpty(message = "Mobile number must not be empty")
+    @Pattern(regexp = "^\\+?(?:977)?[ -]?(?:(?:(?:98|97)-?\\d{8})|(?:01-?\\d{7}))$",
+            message = "Invalid number.")
     @Size(max = 10,min = 10 ,message = "Not valid length of number")
     private String mobile_number;
 }

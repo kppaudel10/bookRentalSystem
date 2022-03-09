@@ -20,7 +20,7 @@ public class Category {
     @SequenceGenerator(name = "category_sequence" ,sequenceName = "category_sequence")
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String title;
 
     @Column(nullable = false)

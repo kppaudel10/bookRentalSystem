@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.bytebuddy.implementation.bind.annotation.Empty;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
@@ -29,27 +28,25 @@ public class BookDto {
     @NotEmpty(message = "must not be empty")
     private String published_date;
 
-    @Size(max = 5, min = 0 ,message = "invalid rating value.")
+    @Size( message = "invalid rating value.")
     private Double rating;
 
-    @Size(min = 1,message = "Can not be negative stock value")
+    //    @Size(min = 1,message = "Can not be negative stock value")
     private Integer stockCount;
 
-    @Size(min = 1, message = "Invalid book page.")
+    //    @Size(min = 1, message = "Invalid book page.")
     private Integer numberOfPage;
 
-    @NotEmpty(message = "category must be selected.")
+    //    @NotEmpty(message = "category must be selected.")
     private Category category;
 
-    @NotEmpty(message = "Author must be selected.")
+    //    @NotEmpty(message = "Author must be selected.")
     private List<Author> authorList;
 
     private MultipartFile multipartFile;
 
-    @NotEmpty(message = "Cover photo must be selected.")
     private String coverPhotoPath;
 
-    @NotEmpty(message = "book code must be selected.")
+    //    @NotEmpty(message = "book code must be selected.")
     private String bookCode;
-
 }

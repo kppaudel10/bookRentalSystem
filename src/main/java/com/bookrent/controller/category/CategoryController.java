@@ -6,8 +6,11 @@ import com.bookrent.entity.Category;
 import com.bookrent.service.impl.CategoryServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/category")
@@ -32,16 +35,21 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
-    public String getAuthorAddPage(@ModelAttribute CategoryDto categoryDto, RedirectAttributes redirectAttributes){
-        //sava into database
-        try {
-           CategoryDto categoryDto1= categoryService.save(categoryDto);
+    public String getAuthorAddPage(@Valid @ModelAttribute("categoryDto")
+                                               CategoryDto categoryDto,
+                                   BindingResult bindingResult,Model model){
+        if (!bindingResult.hasErrors()){
+            try {
+                CategoryDto categoryDto1= categoryService.save(categoryDto);
+                model.addAttribute("message","Category added successfully");
+
 //            System.out.println("saved successfully");
-        }catch (Exception e){
-            redirectAttributes.addFlashAttribute("message","category creation failed.");
-            return "redirect:/category/home";
+            }catch (Exception e){
+                model.addAttribute("message","Category creation failed.");
+            }
         }
-        return "redirect:/category/home";
+        model.addAttribute("categoryDto",categoryDto);
+        return "category/createcategory";
     }
 
     @GetMapping("/update/{id}")

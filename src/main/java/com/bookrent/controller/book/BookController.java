@@ -47,38 +47,39 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String getBookAdd(@Valid @ModelAttribute("bookDto") BookDto bookDto
-                             , BindingResult bindingResult,
-                             Model model) {
-        if (bindingResult.hasErrors()){
-            model.addAttribute("message","Failed to add book.");
-        }else {
-            try {
-                //save into database
-                bookDto = bookService.save(bookDto);
-                if (bookDto != null) {
-                    model.addAttribute("message", "book added successfully");
-                    //if save into database then generate code
-                    Integer stockAvailable= bookDto.getStockCount();
-                    for (Integer i =1;i<=stockAvailable;i++){
-                        //generate book code and store into database
-                        BookCode bookCode = new BookCode();
-                        String bookCodeG = bookDto.getBookCode() + i;
-                        bookCode.setBookId(bookDto.getId());
-                        bookCode.setBookCode(bookCodeG);
-                        bookCode.setRentStatus(RentStatus.RETURN);
-                        bookCodeService.save(bookCode);
-                    }
+    public String getBookAdd(@Valid @ModelAttribute("bookDto") BookDto bookDto,
+                             BindingResult bindingResult,Model model) {
+       if (!bindingResult.hasErrors()){
+           try {
+               //save into database
+               BookDto bookDto1 = bookService.save(bookDto);
+               if (bookDto1 != null) {
+                   model.addAttribute("message", "book added successfully");
+                   //if save into database then generate code
+                   Integer stockAvailable= bookDto.getStockCount();
+                   for (Integer i =1;i<=stockAvailable;i++){
+                       //generate book code and store into database
+                       BookCode bookCode = new BookCode();
+                       String bookCodeG = bookDto.getBookCode() + i;
+                       bookCode.setBookId(bookDto1.getId());
+                       bookCode.setBookCode(bookCodeG);
+                       bookCode.setRentStatus(RentStatus.RETURN);
+                       bookCodeService.save(bookCode);
+                   }
 
-                } else {
-                    model.addAttribute("message","Failed to add book.");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-//        return "redirect:/book/home";
+               } else {
+                   model.addAttribute("message", "Book creation failed.");
+               }
+           } catch (Exception e) {
+               e.printStackTrace();
+               model.addAttribute("message", "Book creation failed.");
+           }
+       }
+        model.addAttribute("bookDto",bookDto);
+        model.addAttribute("categoryList", categoryService.findAll());
+        model.addAttribute("authorList", authorService.findAll());
         return "book/createbook";
+//        return "redirect:/book/home";
     }
 
     @GetMapping("/view/{id}")
