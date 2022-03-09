@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>AUTHOR || ADD</title>
+    <style>
+        .display_msg{
+            margin-top: 0px;
+            color: red;
+            font-size: 15px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -22,16 +29,21 @@
                 <input type="hidden" name="id" th:field="*{id}">
                 <label for="name">Name</label>
                 <input type="text" placeholder="Enter name" id="name" th:field="*{name}">
+                <p class="display_msg" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
 
                 <label for="email">Email</label>
                 <input type="email" placeholder="Enter email" id="email" th:field="*{email}">
+                <p class="display_msg" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 
                 <label for="mobile">Mobile Number</label>
                 <input type="number" placeholder="Enter mobile number" id="mobile" th:field="*{mobile_number}">
+                <p class="display_msg" th:if="${#fields.hasErrors('mobile_number')}" th:errors="*{mobile_number}"></p>
 
                 <input type="submit" value="Save">
                 <input type="reset" value="Reset">
+
             </form>
+            <h4 th:text="*{message}"></h4>
 
         </div>
     </div>

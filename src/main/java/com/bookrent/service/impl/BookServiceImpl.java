@@ -7,6 +7,7 @@ import com.bookrent.entity.Book;
 import com.bookrent.repo.book.BookRepo;
 import com.bookrent.service.GenericCrudService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -62,7 +63,7 @@ public class BookServiceImpl implements GenericCrudService<BookDto, Integer> {
 
     @Override
     public List<BookDto> findAll() {
-        return bookRepo.findAll().stream().map(book -> {
+        return bookRepo.findAll(Sort.by(Sort.Direction.ASC,"id")).stream().map(book -> {
             try {
                 return BookDto.builder()
                         .id(book.getId())
@@ -119,6 +120,10 @@ public class BookServiceImpl implements GenericCrudService<BookDto, Integer> {
     @Override
     public void update(BookDto bookDto) {
 
+    }
+
+    public void updateBookStock( Integer bookId ,Integer stackValue){
+        bookRepo.updateBookStock(bookId,stackValue);
     }
 
 }

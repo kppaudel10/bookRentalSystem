@@ -1,10 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title> RENT || BOOK</title>
+    <link th:href="@{/css/formCss.css}" rel="stylesheet"/>
+    <script>
+        window.onmousedown = function (e) {
+            var el = e.target;
+            if (el.tagName.toLowerCase() == 'option' && el.parentNode.hasAttribute('multiple')) {
+                e.preventDefault();
+
+                // toggle selection
+                if (el.hasAttribute('selected')) el.removeAttribute('selected');
+                else el.setAttribute('selected', '');
+
+                // hack to correct buggy behavior
+                var select = el.parentNode.cloneNode(true);
+                el.parentNode.parentNode.replaceChild(select, el.parentNode);
+            }
+        }
+    </script>
 </head>
 <body>
-$END$
+<div class="container">
+    <div th:replace="fragments/fragment :: js_link" ></div>
+    <div th:replace="fragments/fragment :: css_link" ></div>
+    <div th:replace="fragments/fragment :: ganeric_css" ></div>
+    <div th:replace="fragments/fragment :: navbar " ></div>
+    <div th:replace="fragments/fragment :: homecss " ></div>
+    <!--    <div th:replace="fragments/fragment :: formCss" ></div>-->
+    <div class="main">
+        <button>
+            <a th:href="@{/returnbook/home}">Back</a>
+        </button>
+        <div class="form-wrap">
+            <form th:action="@{/returnbook/returndata}" th:method="post" th:object="${transactionDtoList}" >
+                <h1><u><i>Return Book</i></u></h1>
+
+                <label for="code_list">Select book code: </label>
+                <select th:field="*{bookCode}" id="code_list" class="code">
+                    <option value="default">Select a bookCode</option>
+                    <th:block th:each="code :${rentedCode}">
+                        <option th:value="${code.getBookCode}" th:text="${code.getBookCode}"></option>
+                    </th:block>
+                </select>
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

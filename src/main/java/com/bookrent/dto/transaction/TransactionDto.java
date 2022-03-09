@@ -2,10 +2,13 @@ package com.bookrent.dto.transaction;
 
 import com.bookrent.entity.Book;
 import com.bookrent.entity.Member;
+import com.bookrent.enums.RentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -16,10 +19,16 @@ public class TransactionDto {
 
     private String bookCode;
 
-    private Book book;
+    private RentStatus rentStatus;
 
-    private Member member;
+    private Integer bookId;
+
+    private Integer memberId;
 
     private Integer noOfDays;
+
+    private Date fromDate;
+
+    private Date returnDate;
 
 }

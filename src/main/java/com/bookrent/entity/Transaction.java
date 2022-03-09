@@ -28,9 +28,9 @@ public class Transaction {
     private Integer id;
 
     @Column(name = "book_code", nullable = false)
-    private String code;
+    private String bookCode;
 
-    @Column(name = "from_date", nullable = false)
+    @Column(name = "from_date")
     @Temporal(TemporalType.DATE)
     private Date fromDate;
 
@@ -40,7 +40,9 @@ public class Transaction {
     @Column(name = "rent_status", nullable = false)
     private RentStatus rentStatus;
 
-//    private Integer stock;
+    @Column(name = "return_date")
+    @Temporal(TemporalType.DATE)
+    private Date returnDate;
 
     @ManyToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_transaction_book"))

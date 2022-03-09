@@ -1,10 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title> RENTURN || BOOK</title>
+    <link th:href="@{/css/formCss.css}" rel="stylesheet"/>
+    <script>
+        window.onmousedown = function (e) {
+            var el = e.target;
+            if (el.tagName.toLowerCase() == 'option' && el.parentNode.hasAttribute('multiple')) {
+                e.preventDefault();
+
+                // toggle selection
+                if (el.hasAttribute('selected')) el.removeAttribute('selected');
+                else el.setAttribute('selected', '');
+
+                // hack to correct buggy behavior
+                var select = el.parentNode.cloneNode(true);
+                el.parentNode.parentNode.replaceChild(select, el.parentNode);
+            }
+        }
+
+    </script>
 </head>
 <body>
-$END$
+<div class="container">
+    <div th:replace="fragments/fragment :: js_link" ></div>
+    <div th:replace="fragments/fragment :: css_link" ></div>
+    <div th:replace="fragments/fragment :: ganeric_css" ></div>
+    <div th:replace="fragments/fragment :: navbar " ></div>
+    <div th:replace="fragments/fragment :: homecss " ></div>
+    <!--    <div th:replace="fragments/fragment :: formCss" ></div>-->
+    <div class="main">
+        <button>
+            <a th:href="@{/returnbook/return}">Back</a>
+        </button>
+        <div class="form-wrap">
+            <form th:action="@{/returnbook/add}" th:method="post" th:object="${transactionDetails}" >
+                <h1><u><i>Rent Transaction Details</i></u></h1>
+                <input type="hidden" th:field="*{id}">
+               <label>Book Code</label>
+                <input type="text" th:field="*{bookCode}" disabled>
+
+                <label>Book Name </label>
+                <input type="text" th:value="*{book.getName()}" disabled>
+
+                <label>Member Name </label>
+                <input type="text" th:value="*{member.getFull_name()}"  disabled>
+
+                <label>Date of Request </label>
+                <input type="text" th:value="*{fromDate}" disabled>
+
+                <label>Rent Status </label>
+                <input type="text" th:value="*{rentStatus.RENT}" disabled>
+
+                <input type="submit" value="Return">
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

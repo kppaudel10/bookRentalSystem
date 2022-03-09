@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/member")
 public class MemberController {
@@ -69,7 +71,7 @@ public class MemberController {
     }
 
     @GetMapping("/delete/{id}")
-    public String getDelete(@PathVariable Integer id){
+    public String getDelete(@PathVariable Integer id) throws IOException {
         memberServiceimpl.deleteById(id);
         return "redirect:/member/home";
     }

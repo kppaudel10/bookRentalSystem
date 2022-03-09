@@ -1,5 +1,6 @@
 package com.bookrent.entity;
 
+import com.bookrent.enums.RentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,8 @@ public class BookCode {
     @Column(nullable = false)
     private Integer bookId;
 
-    @Column(nullable = true)
+    @Column(nullable = true ,unique = true)
     private String bookCode;
+
+    private RentStatus rentStatus;
 }

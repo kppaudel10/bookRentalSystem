@@ -2,15 +2,18 @@ package com.bookrent.controller.book;
 
 import com.bookrent.dto.book.BookDto;
 import com.bookrent.entity.BookCode;
+import com.bookrent.enums.RentStatus;
 import com.bookrent.service.bookCode.BookCodeService;
 import com.bookrent.service.impl.AuthorServiceImpl;
 import com.bookrent.service.impl.BookServiceImpl;
 import com.bookrent.service.impl.CategoryServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller
@@ -44,31 +47,38 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String getBookAdd(@ModelAttribute BookDto bookDto,
-                             RedirectAttributes redirectAttributes) {
-        try {
-            //save into database
-            BookDto bookDto1 = bookService.save(bookDto);
-            if (bookDto1 != null) {
-                redirectAttributes.addFlashAttribute("message", "book added successfully");
-                //if save into database then generate code
-              Integer stockAvailable= bookDto.getStockCount();
-                for (Integer i =1;i<=stockAvailable;i++){
-                    //generate book code and store into database
-                    BookCode bookCode = new BookCode();
-                    String bookCodeG = bookDto.getBookCode() + i;
-                    bookCode.setBookId(bookDto1.getId());
-                    bookCode.setBookCode(bookCodeG);
-                    bookCodeService.save(bookCode);
-                }
+    public String getBookAdd(@Valid @ModelAttribute("bookDto") BookDto bookDto
+                             , BindingResult bindingResult,
+                             Model model) {
+        if (bindingResult.hasErrors()){
+            model.addAttribute("message","Failed to add book.");
+        }else {
+            try {
+                //save into database
+                bookDto = bookService.save(bookDto);
+                if (bookDto != null) {
+                    model.addAttribute("message", "book added successfully");
+                    //if save into database then generate code
+                    Integer stockAvailable= bookDto.getStockCount();
+                    for (Integer i =1;i<=stockAvailable;i++){
+                        //generate book code and store into database
+                        BookCode bookCode = new BookCode();
+                        String bookCodeG = bookDto.getBookCode() + i;
+                        bookCode.setBookId(bookDto.getId());
+                        bookCode.setBookCode(bookCodeG);
+                        bookCode.setRentStatus(RentStatus.RETURN);
+                        bookCodeService.save(bookCode);
+                    }
 
-            } else {
-                redirectAttributes.addFlashAttribute("message", "book unable to add.");
+                } else {
+                    model.addAttribute("message","Failed to add book.");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return "redirect:/book/home";
+//        return "redirect:/book/home";
+        return "book/createbook";
     }
 
     @GetMapping("/view/{id}")

@@ -10,15 +10,11 @@
             position: absolute;
         }
         .bookDetails{
-            margin-top: 260px;
+            margin-top: 210px;
             position: absolute;
         }
-        .authorDetails{
+        .transactionDetails{
             margin-top: 310px;
-            position: absolute;
-        }
-        .image{
-            margin-top: 370px;
             position: absolute;
         }
     </style>
@@ -33,32 +29,30 @@
     <div class="main">
         <h2 class="head_caption"><u><i>Book Details</i></u></h2>
         <button>
-            <a th:href="@{/book/home}">Back</a>
+            <a th:href="@{/returnbook/home}">Back</a>
         </button>
         <ul type="none">
             <div class="memberDetails">
                 <th:block>
-                    <li th:text="'Member Name :'+${memberDetails.getName()}"></li>
-                    <li th:text="'Member Email '+${memberDetails.getEmail()}"></li>
-                    <li th:text="'Member Contact:'+${memberDetails.getContact()}"></li>
+                    <li th:text="'Member Name ::'+${memberDetails.getName()}"></li>
+                    <li th:text="'Member Email ::'+${memberDetails.getEmail()}"></li>
+                    <li th:text="'Member Contact::'+${memberDetails.getContact()}"></li>
                 </th:block>
             </div>
             <div class="bookDetails">
                 <th:block>
                     <li th:text="'Book Name :'+${bookDetails.getName()}"></li>
-                    <li th:text="'Book Code: '+${transactionList.get}"></li>
+                    <li th:text="'Published Date: '+${bookDetails.published_date}"></li>
                 </th:block>
             </div>
-            <div class="authorDetails">
-                <th:block th:each="i : ${authorData}"class="authorList" type="none">
-                    <li th:text="'Author Name         :'+${i.name}"class="authorName"></li>
+            <div class="transactionDetails">
+                <th:block>
+                    <li th:text="'Rented Date :'+${transactionList.fromDate}"></li>
+                    <li th:text="'Number of days: '+${transactionList.noOfDays}"></li>
+                    <li th:text="'Book Code: '+${transactionList.bookCode}"></li>
                 </th:block>
             </div>
-            <div class="image">
 
-                <h3>Cover Photo</h3>
-                <img th:src="${coverPhotoPath}" height="500px" width="500px">
-            </div>
         </ul>
     </div>
 </div>

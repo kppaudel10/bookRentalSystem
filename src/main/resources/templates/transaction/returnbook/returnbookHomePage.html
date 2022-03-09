@@ -13,9 +13,9 @@
     <div th:replace="fragments/fragment :: navbar " ></div>
     <div th:replace="fragments/fragment :: homecss " ></div>
     <div class="main">
-        <h2 class="head_caption"><u><i>Rent Book Details</i></u></h2>
+        <h2 class="head_caption"><u><i>Return Book Details</i></u></h2>
         <button>
-            <a th:href="@{/rentbook/rent}">Return</a>
+            <a th:href="@{/returnbook/return}">Return</a>
         </button>
         <table id="members">
             <thead>
@@ -23,19 +23,23 @@
                 <th>S.N</th>
                 <th>Name</th>
                 <th>Code</th>
+                <th>Rented Date</th>
+                <th>Return Date</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
-<!--            <tr th:each="i,loop:  ${transactionList}">-->
-<!--                <td th:text="${loop.count}"></td>-->
-<!--                <td th:text="${i.member.getFull_name()}"></td>-->
-<!--                <td th:text="${i.bookCode}"></td>-->
-<!--                <td>-->
-<!--                    <a class="button1" th:href="@{/rentbook/view/{id}(id = ${i.id})}">View</a>-->
-<!--                    &lt;!&ndash;          <a class="button2" th:href="@{/rentbook/home}">Delete</a>&ndash;&gt;-->
-<!--                </td>-->
-<!--            </tr>-->
+            <tr th:each="i,loop:  ${transactionList}">
+                <td  th:text="${loop.count}"></td>
+                <td th:text="${i.member.getFull_name()}"></td>
+                <td th:text="${i.bookCode}"></td>
+                <td th:text="${i.fromDate}"></td>
+                <td th:text="${i.returnDate}"></td>
+                <td>
+                    <a class="button1" th:href="@{/rentbook/view/{id}(id = ${i.id})}">View</a>
+                    <!--          <a class="button2" th:href="@{/rentbook/home}">Delete</a>-->
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

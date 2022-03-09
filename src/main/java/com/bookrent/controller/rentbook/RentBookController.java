@@ -1,6 +1,7 @@
 package com.bookrent.controller.rentbook;
 
 import com.bookrent.dto.transaction.TransactionDto;
+import com.bookrent.enums.RentStatus;
 import com.bookrent.service.impl.BookCodeServiceImpl;
 import com.bookrent.service.impl.BookServiceImpl;
 import com.bookrent.service.impl.MemberServiceImpl;
@@ -31,7 +32,7 @@ public class RentBookController {
     @GetMapping("/home")
     public String getRentBookHomePage(Model model){
         model.addAttribute("transactionDto",new TransactionDto());
-        model.addAttribute("transactionList",transactionService.findAll());
+        model.addAttribute("transactionList",transactionService.findAllRent());
         return "transaction/rentbook/rentbookHomePage";
     }
 
@@ -40,15 +41,15 @@ public class RentBookController {
         model.addAttribute("transactionDto",new TransactionDto());
         model.addAttribute("bookList", bookService.findAll());
         model.addAttribute("memberList",memberService.findAll());
-        model.addAttribute("bookCodeList",bookCodeService.findAll());
+        model.addAttribute("bookCodeList",bookCodeService.findAllNotRentedBookCode());
         return "transaction/rentbook/rentbook";
     }
     @PostMapping("/add")
     public String getAddRentPage(@ModelAttribute TransactionDto transactionDto,
                                  RedirectAttributes redirectAttributes){
         try {
-           TransactionDto transactionDto1 = transactionService.save(transactionDto);
-            System.out.println("saved successfully");
+                TransactionDto transactionDto1 = transactionService.save(transactionDto);
+                System.out.println("saved successfully");
 
         }catch (Exception e){
             redirectAttributes.addFlashAttribute("message","Transaction unable to complete .");
@@ -62,14 +63,14 @@ public class RentBookController {
         model.addAttribute("transactionList",transactionService.findById(id));
         try {
             model.addAttribute("memberDetails",memberService.findById
-                    (transactionService.findById(id).getMember().getId()));
+                    (transactionService.findById(id).getMemberId()));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }
         model.addAttribute("bookDetails",
-                bookService.findById(transactionService.findById(id).getBook().getId()));
+                bookService.findById(transactionService.findById(id).getBookId()));
         return "transaction/rentbook/viewrentDetails";
     }
 }

@@ -4,8 +4,11 @@ import com.bookrent.dto.author.AuthorDto;
 import com.bookrent.service.impl.AuthorServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/author")
@@ -31,17 +34,26 @@ public class AuthorController {
     }
 
     @PostMapping("/add")
-    public String getAuthorAddPage(@ModelAttribute AuthorDto authorDto, RedirectAttributes redirectAttributes) {
-        try {
-            //save into database
-            AuthorDto authorDto1 = authorService.save(authorDto);
+    public String getAuthorAddPage(@Valid @ModelAttribute("authorDto") AuthorDto authorDto,
+                                   BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("message", "Failed to create Author.");
+        } else {
+            try {
+                //save into database
+                authorDto = authorService.save(authorDto);
 //            System.out.println("save into database");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("message", "author creation failed.");
-            e.printStackTrace();
+                model.addAttribute("message", "Author successfully added.");
+            } catch (Exception e) {
+                model.addAttribute("message", "Failed to create Author.");
+                e.printStackTrace();
+            }
         }
-        return "redirect:/author/home";
+        model.addAttribute("authorDto",authorDto);
+//        return "redirect:/author/signup";
+        return "author/createauthor";
     }
+
 
     @GetMapping("/update/{id}")
     public String getAuthorUpdatePage(@PathVariable Integer id, Model model) {
@@ -68,6 +80,7 @@ public class AuthorController {
             redirectAttributes.addFlashAttribute("message", "author creation failed.");
             e.printStackTrace();
         }
+
         return "redirect:/author/home";
     }
 
