@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -19,16 +20,16 @@ import java.util.List;
 public class BookDto {
     private Integer id;
 
-    @NotEmpty(message = "Name must not be empty")
+//    @NotEmpty(message = "Name must not be empty")
     private String name;
 
-    @NotEmpty(message = "must not be empty")
+//    @NotEmpty(message = "must not be empty")
     private String isbn;
 
-    @NotEmpty(message = "must not be empty")
+//    @NotEmpty(message = "must not be empty")
     private String published_date;
 
-    @Size( message = "invalid rating value.")
+//    @Size(max = 5,min = 1,message = "invalid rating value.")
     private Double rating;
 
     //    @Size(min = 1,message = "Can not be negative stock value")

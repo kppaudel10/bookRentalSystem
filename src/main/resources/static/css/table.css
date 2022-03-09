@@ -44,3 +44,15 @@ table{
     background-color: darkgray;
     color: white;
 }
+.button3{
+    padding: 5px;
+    width:40px;
+    background-color: hsl(180, 68%, 56%);
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.button3:hover{
+    background-color: darkgray;
+    color: white;
+}

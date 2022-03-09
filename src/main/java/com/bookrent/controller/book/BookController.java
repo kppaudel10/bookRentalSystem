@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.text.ParseException;
 
 @Controller
 @RequestMapping("/book")
@@ -48,34 +48,34 @@ public class BookController {
 
     @PostMapping("/add")
     public String getBookAdd(@Valid @ModelAttribute("bookDto") BookDto bookDto,
-                             BindingResult bindingResult,Model model) {
-       if (!bindingResult.hasErrors()){
-           try {
-               //save into database
-               BookDto bookDto1 = bookService.save(bookDto);
-               if (bookDto1 != null) {
-                   model.addAttribute("message", "book added successfully");
-                   //if save into database then generate code
-                   Integer stockAvailable= bookDto.getStockCount();
-                   for (Integer i =1;i<=stockAvailable;i++){
-                       //generate book code and store into database
-                       BookCode bookCode = new BookCode();
-                       String bookCodeG = bookDto.getBookCode() + i;
-                       bookCode.setBookId(bookDto1.getId());
-                       bookCode.setBookCode(bookCodeG);
-                       bookCode.setRentStatus(RentStatus.RETURN);
-                       bookCodeService.save(bookCode);
-                   }
+                             BindingResult bindingResult, Model model) {
+        if (!bindingResult.hasErrors()) {
+            try {
+                //save into database
+                BookDto bookDto1 = bookService.save(bookDto);
+                if (bookDto1 != null) {
+                    model.addAttribute("message", "book added successfully");
+                    //if save into database then generate code
+                    Integer stockAvailable = bookDto.getStockCount();
+                    for (Integer i = 1; i <= stockAvailable; i++) {
+                        //generate book code and store into database
+                        BookCode bookCode = new BookCode();
+                        String bookCodeG = bookDto.getBookCode() + i;
+                        bookCode.setBookId(bookDto1.getId());
+                        bookCode.setBookCode(bookCodeG);
+                        bookCode.setRentStatus(RentStatus.RETURN);
+                        bookCodeService.save(bookCode);
+                    }
 
-               } else {
-                   model.addAttribute("message", "Book creation failed.");
-               }
-           } catch (Exception e) {
-               e.printStackTrace();
-               model.addAttribute("message", "Book creation failed.");
-           }
-       }
-        model.addAttribute("bookDto",bookDto);
+                } else {
+                    model.addAttribute("message", "Book creation failed.");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                model.addAttribute("message", "Book creation failed.");
+            }
+        }
+        model.addAttribute("bookDto", bookDto);
         model.addAttribute("categoryList", categoryService.findAll());
         model.addAttribute("authorList", authorService.findAll());
         return "book/createbook";
@@ -88,7 +88,7 @@ public class BookController {
         model.addAttribute("bookDetail", bookService.findById(id));
         model.addAttribute("categoryData", categoryService.findById(bookService.findById(id).getCategory().getId()));
         model.addAttribute("authorData", bookService.findById(id).getAuthorList());
-        model.addAttribute("coverPhotoPath",bookService.findById(id).getCoverPhotoPath());
+        model.addAttribute("coverPhotoPath", bookService.findById(id).getCoverPhotoPath());
         return "book/viewBookDetails";
     }
 
@@ -96,5 +96,14 @@ public class BookController {
     public String getDelete(@PathVariable Integer id) throws IOException {
         bookService.deleteById(id);
         return "redirect:/book/home";
+    }
+
+    @GetMapping("/update/{id}")
+    public String getBookUpdatePage(@PathVariable Integer id ,Model model) throws IOException, ParseException {
+       BookDto bookDto = bookService.findById(id);
+       model.addAttribute("oldBookDto",bookDto);
+       model.addAttribute("categoryList",categoryService.findAll());
+       model.addAttribute("authorList",authorService.findAll());
+        return "book/updatebook";
     }
 }
