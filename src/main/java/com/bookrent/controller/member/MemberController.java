@@ -36,20 +36,16 @@ public class MemberController {
     @PostMapping ("/add")
     public String getMemberAddPage(@Valid @ModelAttribute("memberDto") MemberDto memberDto,
                                    BindingResult bindingResult,Model model) {
-        MemberDto memberDto1 = null;
         if (!bindingResult.hasErrors()){
             try {
-            memberDto1 = memberServiceimpl.save(memberDto);
+           MemberDto memberDto1 = memberServiceimpl.save(memberDto);
+            model.addAttribute("message","member created successfully.");
             }catch (Exception e){
                 model.addAttribute("message","member creation failed.");
 //            return "redirect:/member/home";
             }
-            if (memberDto1 != null){
-               model.addAttribute("message","member created successfully.");
-            }
         }
         model.addAttribute("memberDto",memberDto);
-//        return "member/createmember";
         return "member/createmember";
     }
 

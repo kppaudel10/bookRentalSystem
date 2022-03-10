@@ -41,15 +41,15 @@ public class BookController {
     @GetMapping("/add")
     public String getBookAddPage(Model model) {
         model.addAttribute("bookDto", new BookDto());
-        model.addAttribute("categoryList", categoryService.findAll());
         model.addAttribute("authorList", authorService.findAll());
+        model.addAttribute("categoryList", categoryService.findAll());
         return "book/createbook";
     }
 
     @PostMapping("/add")
-    public String getBookAdd(@Valid @ModelAttribute("bookDto") BookDto bookDto,
-                             BindingResult bindingResult, Model model) {
-        if (!bindingResult.hasErrors()) {
+    public String getBookAdd( @ModelAttribute("bookDto") BookDto bookDto
+                             ,Model model) {
+//        if (!bindingResult.hasErrors()) {
             try {
                 //save into database
                 BookDto bookDto1 = bookService.save(bookDto);
@@ -71,15 +71,16 @@ public class BookController {
                     model.addAttribute("message", "Book creation failed.");
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(e);
                 model.addAttribute("message", "Book creation failed.");
-            }
+//            }
         }
-        model.addAttribute("bookDto", bookDto);
-        model.addAttribute("categoryList", categoryService.findAll());
-        model.addAttribute("authorList", authorService.findAll());
-        return "book/createbook";
-//        return "redirect:/book/home";
+//
+//        model.addAttribute("bookDto", bookDto);
+//        model.addAttribute("categoryList", categoryService.findAll());
+//        model.addAttribute("authorList", authorService.findAll());
+//        return "book/createbook";
+        return "redirect:/book/home";
     }
 
     @GetMapping("/view/{id}")
@@ -99,11 +100,12 @@ public class BookController {
     }
 
     @GetMapping("/update/{id}")
-    public String getBookUpdatePage(@PathVariable Integer id ,Model model) throws IOException, ParseException {
-       BookDto bookDto = bookService.findById(id);
-       model.addAttribute("oldBookDto",bookDto);
-       model.addAttribute("categoryList",categoryService.findAll());
-       model.addAttribute("authorList",authorService.findAll());
+    public String getBookUpdatePage(@PathVariable Integer id, Model model) throws IOException, ParseException {
+        BookDto bookDto = bookService.findById(id);
+        model.addAttribute("oldBookDto", bookDto);
+        model.addAttribute("categoryList", categoryService.findAll());
+        model.addAttribute("authorList", authorService.findAll());
+//        return "redirect:/book/home";
         return "book/updatebook";
     }
 }

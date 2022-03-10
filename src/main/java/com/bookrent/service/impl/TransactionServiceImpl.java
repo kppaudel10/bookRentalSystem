@@ -3,6 +3,7 @@ package com.bookrent.service.impl;
 import com.bookrent.dto.conversion.BookAndDto;
 import com.bookrent.dto.conversion.MemberAndDto;
 import com.bookrent.dto.transaction.TransactionDto;
+import com.bookrent.entity.Book;
 import com.bookrent.entity.Transaction;
 import com.bookrent.enums.RentStatus;
 import com.bookrent.repo.transaction.TransactionRepo;
@@ -46,9 +47,8 @@ public class TransactionServiceImpl implements TransactionService {
         //save into database
         Transaction transaction1 = transactionRepo.save(transaction);
         //update stock value
-        bookService.updateBookStock(transactionDto.getBookId()
-                , bookService.findById(transactionDto.getBookId())
-                        .getStockCount() -1 );
+        Book book= new BookAndDto().getBook(bookService.findById(transactionDto.getBookId()));
+        bookService.updateBookStock(book.getId(),book.getStockCount()-1);
 
         //update bookCode rentStatus
         bookCodeService.updateRentStatusAsRent(transactionDto.getBookCode());

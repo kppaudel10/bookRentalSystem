@@ -35,14 +35,15 @@
             <a th:href="@{/book/home}">Back</a>
         </button>
         <div class="form-wrap">
-            <form action="#" th:action="@{/book/add}" th:method="post"
+            <form th:action="@{/book/add}" th:method="post"
                   th:object="${bookDto}" enctype="multipart/form-data">
                 <h1><u><i>Add New Book</i></u></h1>
                 <label>Select Category: </label>
-                <select th:field="*{category}">
+                <select th:field="*{categoryId}">
                     <option value="default">Select a category</option>
                     <th:block th:each="category :${categoryList}">
-                        <option th:value="${category.id}" th:text="${category.getTitle() }"></option>
+                        <option th:value="${category.id}" th:text="${category.title }">
+                        </option>
                     </th:block>
                 </select>
 <!--                <p class="display_msg" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></p>-->
@@ -94,6 +95,7 @@
                 <input type="submit" value="Save">
                 <input type="reset" value="Reset">
             </form>
+            <h4 th:text="*{message}"></h4>
         </div>
     </div>
 </div>

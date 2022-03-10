@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title> BOOK || ADD</title>
@@ -35,7 +35,7 @@
             <a th:href="@{/book/home}">Back</a>
         </button>
         <div class="form-wrap">
-            <form action="#" th:action="@{/book/add}" th:method="post"
+            <form th:action="@{/book/update}" th:method="post"
                   th:object="${oldBookDto}" enctype="multipart/form-data">
                 <h1><u><i>Update Book Details</i></u></h1>
                 <label>Select Category: </label>
@@ -57,27 +57,27 @@
                     </th:block>
                 </select>
 
-                <br>
-                <label for="name">Name </label>
-                <input type="text" placeholder="Enter name" id="name" th:field="*{name}">
+<!--                <br>-->
+<!--                <label for="name">Name </label>-->
+<!--                <input type="text" placeholder="Enter name" id="name" th:field="*{name}">-->
 
-                <label for="page">No. of pages</label>
-                <input type="number" placeholder="Enter number of pages" id="page" th:field="*{numberOfPage}">
+<!--                <label for="page">No. of pages</label>-->
+<!--                <input type="number" placeholder="Enter number of pages" id="page" th:field="*{numberOfPage}">-->
 
-                <label for="isbn">Isbn</label>
-                <input type="text" placeholder="Enter book isbn" id="isbn" th:field="*{isbn}">
+<!--                <label for="isbn">Isbn</label>-->
+<!--                <input type="text" placeholder="Enter book isbn" id="isbn" th:field="*{isbn}">-->
 
-                <label for="rating">Rating</label>
-                <input type="number" placeholder="Enter book rating" id="rating" th:field="*{rating}">
+<!--                <label for="rating">Rating</label>-->
+<!--                <input type="number" placeholder="Enter book rating" id="rating" th:field="*{rating}">-->
 
-                <label for="stock_count">Stock count</label>
-                <input type="number" placeholder="Enter book stock availability" id="stock_count" th:field="*{stockCount}">
+<!--                <label for="stock_count">Stock count</label>-->
+<!--                <input type="number" placeholder="Enter book stock availability" id="stock_count" th:field="*{stockCount}">-->
 
-                <label for="published_date">Published Date</label>
-                <input type="text" placeholder="Enter published date(dd-mm-yyyy)" id="published_date" th:field="*{published_date}">
+<!--                <label for="published_date">Published Date</label>-->
+<!--                <input type="text" placeholder="Enter published date(dd-mm-yyyy)" id="published_date" th:field="*{published_date}">-->
 
-                <label for="bookCode">Base Book Code</label>
-                <input type="text" placeholder="Enter book code" id="bookCode" th:field="*{bookCode}">
+<!--                <label for="bookCode">Base Book Code</label>-->
+<!--                <input type="text" placeholder="Enter book code" id="bookCode" th:field="*{bookCode}">-->
 
 <!--                <label for="photo_link">photo</label>-->
 <!--                <input type="file" placeholder="upload cover photo" id="photo_link" th:field="*{multipartFile}">-->

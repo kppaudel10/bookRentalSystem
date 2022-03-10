@@ -1,5 +1,6 @@
 package com.bookrent.service.impl;
 
+import com.bookrent.component.MailSendComponent;
 import com.bookrent.dto.author.AuthorDto;
 import com.bookrent.entity.Author;
 import com.bookrent.repo.author.AuthorRepo;
@@ -15,9 +16,11 @@ import java.util.stream.Collectors;
 public class AuthorServiceImpl implements AuthorService {
     //get author repo to work with database
     private final AuthorRepo authorRepo;
+    private final MailSendComponent mailSend;
 
-    public AuthorServiceImpl(AuthorRepo authorRepo) {
+    public AuthorServiceImpl(AuthorRepo authorRepo, MailSendComponent mailSend) {
         this.authorRepo = authorRepo;
+        this.mailSend = mailSend;
     }
 
     @Override
@@ -30,13 +33,15 @@ public class AuthorServiceImpl implements AuthorService {
         author.setMobile_number(authorDto.getMobile_number());
         //save into database
         Author author1 = authorRepo.save(author);
+        System.out.println(author1);
+        mailSend.sendMail(authorDto);
         return authorDto;
     }
 
     @Override
     public List<AuthorDto> findAll() {
         //find all author from database
-        return authorRepo.findAll(Sort.by(Sort.Direction.ASC,"id")).stream().map(author -> {
+        return authorRepo.findAll(Sort.by(Sort.Direction.ASC, "id")).stream().map(author -> {
             return AuthorDto.builder()
                     .id(author.getId())
                     .name(author.getName())
@@ -69,9 +74,11 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public void update(AuthorDto authorDto) {
         Integer id = authorDto.getId();
-        authorRepo.updateName(authorDto.getName(),id);
-        authorRepo.updateEmail(authorDto.getEmail(),id);
-        authorRepo.updateMobile(authorDto.getMobile_number(),id);
+        authorRepo.updateName(authorDto.getName(), id);
+        authorRepo.updateEmail(authorDto.getEmail(), id);
+        authorRepo.updateMobile(authorDto.getMobile_number(), id);
+
     }
+
 
 }

@@ -2,6 +2,7 @@ package com.bookrent.service.impl;
 
 import com.bookrent.component.FileStorageComponent;
 import com.bookrent.dto.book.BookDto;
+import com.bookrent.dto.conversion.CategoryAndDto;
 import com.bookrent.dto.response.ResponseDto;
 import com.bookrent.entity.Book;
 import com.bookrent.repo.book.BookRepo;
@@ -50,7 +51,8 @@ public class BookServiceImpl implements GenericCrudService<BookDto, Integer> {
                     .coverPhotoPath(responseDto.getMessage())
                     .authorSet(bookDto.getAuthorList())
                     .bookCode(bookDto.getBookCode())
-                    .category(bookDto.getCategory())
+                    .category(new CategoryAndDto().getCategory(categoryService.
+                                    findById(bookDto.getCategoryId())))
                     .build();
 
             book = bookRepo.save(book);
