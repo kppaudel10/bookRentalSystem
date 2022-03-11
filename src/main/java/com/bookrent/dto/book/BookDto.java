@@ -41,13 +41,18 @@ public class BookDto {
     @Min(value = 1, message = "Book must have at least 1 page")
     private Integer numberOfPage;
 
-    private Category category;
-
-    private List<Author> authorList;
-
     @NotNull(message = "Book category can't be empty")
     private Integer categoryId;
 
+    private Category category;
+
+    @NotNull(message = "Author cannot be null")
+    private List<Integer> authorId;
+
+    private List<Author> authorList;
+
+
+    @NotNull(message = "Must select cover photo.")
     private MultipartFile multipartFile;
 
     private String coverPhotoPath;

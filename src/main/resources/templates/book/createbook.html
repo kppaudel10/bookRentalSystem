@@ -40,62 +40,63 @@
                 <h1><u><i>Add New Book</i></u></h1>
                 <label>Select Category: </label>
                 <select th:field="*{categoryId}">
-                    <option value="default">Select a category</option>
+                    <option value="" >Select a category</option>
                     <th:block th:each="category :${categoryList}">
                         <option th:value="${category.id}" th:text="${category.title }">
                         </option>
                     </th:block>
                 </select>
-<!--                <p class="display_msg" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></p>-->
+                <p class="display_msg" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"></p>
 
                 <br>
                 <label>Select Authors: </label>
-                <select th:field="*{authorList}" class="multipleSelect" multiple required>
+                <select th:field="*{authorId}" class="multipleSelect" multiple>
+                    <option value="">Select AuthorList</option>
                     <th:block th:each="part : ${authorList}">
                            <option th:value="${part.id}"
                             th:text="${part.name}">
                            </option>
                     </th:block>
                 </select>
-<!--                <p class="display_msg" th:if="${#fields.hasErrors('authorList')}" th:errors="*{authorList}"></p>-->
+                <p class="display_msg" th:if="${#fields.hasErrors('authorId')}" th:errors="*{authorId}"></p>
 
                 <br>
                 <label for="name">Name </label>
                 <input type="text" placeholder="Enter name" id="name" th:field="*{name}">
-<!--                <p class="display_msg" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>-->
+                <p class="display_msg" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 
                 <label for="page">No. of pages</label>
                 <input type="number" placeholder="Enter number of pages" id="page" th:field="*{numberOfPage}">
-<!--                <p class="display_msg" th:if="${#fields.hasErrors('numberOfPage')}" th:errors="*{numberOfPage}"></p>-->
+                <p class="display_msg" th:if="${#fields.hasErrors('numberOfPage')}" th:errors="*{numberOfPage}"></p>
 
                 <label for="isbn">Isbn</label>
                 <input type="text" placeholder="Enter book isbn" id="isbn" th:field="*{isbn}">
-<!--                <p class="display_msg" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></p>-->
+                <p class="display_msg" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></p>
 
                 <label for="rating">Rating</label>
                 <input type="number" placeholder="Enter book rating" id="rating" th:field="*{rating}">
-<!--                <p class="display_msg" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></p>-->
+                <p class="display_msg" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></p>
 
                 <label for="stock_count">Stock count</label>
                 <input type="number" placeholder="Enter book stock availability" id="stock_count" th:field="*{stockCount}">
-<!--                <p class="display_msg" th:if="${#fields.hasErrors('stockCount')}" th:errors="*{stockCount}"></p>-->
+                <p class="display_msg" th:if="${#fields.hasErrors('stockCount')}" th:errors="*{stockCount}"></p>
 
                 <label for="published_date">Published Date</label>
                 <input type="text" placeholder="Enter published date(dd-mm-yyyy)" id="published_date" th:field="*{published_date}">
-<!--                <p class="display_msg" th:if="${#fields.hasErrors('published_date')}" th:errors="*{published_date}"></p>-->
+                <p class="display_msg" th:if="${#fields.hasErrors('published_date')}" th:errors="*{published_date}"></p>
 
                 <label for="bookCode">Base Book Code</label>
                 <input type="text" placeholder="Enter book code" id="bookCode" th:field="*{bookCode}">
-<!--                <p class="display_msg" th:if="${#fields.hasErrors('bookCode')}" th:errors="*{bookCode}"></p>-->
+                <p class="display_msg" th:if="${#fields.hasErrors('bookCode')}" th:errors="*{bookCode}"></p>
 
                 <label for="photo_link">photo</label>
                 <input type="file" placeholder="upload cover photo" id="photo_link" th:field="*{multipartFile}">
-<!--                <p class="display_msg" th:if="${#fields.hasErrors('multipartFile')}" th:errors="*{multipartFile}"></p>-->
+                <p class="display_msg" th:if="${#fields.hasErrors('multipartFile')}" th:errors="*{multipartFile}"></p>
 
                 <input type="submit" value="Save">
                 <input type="reset" value="Reset">
             </form>
-<!--            <h4 th:text="*{message}"></h4>-->
+            <h4 th:text="*{message}"></h4>
         </div>
     </div>
 </div>

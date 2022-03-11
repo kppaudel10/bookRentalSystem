@@ -24,5 +24,4 @@ public interface BookCodeRepo extends JpaRepository<BookCode, Integer> {
     @Query(value = "update brs_book_code rent_status set rent_status = :rentStatus where id = :id", nativeQuery = true)
     void updateRentStatus(@Param("id") Integer id, @Param("rentStatus") Integer rentStatus);
 
-
 }

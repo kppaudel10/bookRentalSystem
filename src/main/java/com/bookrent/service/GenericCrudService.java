@@ -10,5 +10,5 @@ public interface GenericCrudService<D, ID>{
     D findById(ID id) throws IOException, ParseException;
     void deleteById(ID id) throws IOException;
 
-    void update(D d);
+    void update(D d) throws IOException, ParseException;
 }

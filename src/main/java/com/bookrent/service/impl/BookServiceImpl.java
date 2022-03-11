@@ -2,8 +2,10 @@ package com.bookrent.service.impl;
 
 import com.bookrent.component.FileStorageComponent;
 import com.bookrent.dto.book.BookDto;
+import com.bookrent.dto.conversion.AuthorAndDto;
 import com.bookrent.dto.conversion.CategoryAndDto;
 import com.bookrent.dto.response.ResponseDto;
+import com.bookrent.entity.Author;
 import com.bookrent.entity.Book;
 import com.bookrent.repo.book.BookRepo;
 import com.bookrent.service.GenericCrudService;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,6 +42,12 @@ public class BookServiceImpl implements GenericCrudService<BookDto, Integer> {
     public BookDto save(BookDto bookDto) throws IOException, ParseException {
         ResponseDto responseDto = FileStorageComponent.storeFile(bookDto.getMultipartFile());
         if (responseDto.isStatus()) {
+            List<Author> authorList = new ArrayList<>();
+            for (Integer i =0;i<bookDto.getAuthorId().size();i++){
+                authorList.add(new AuthorAndDto().getAuthor( authorService.findById(bookDto.getAuthorId().get(i))));
+            }
+            bookDto.setAuthorList(authorList);
+
             Book book = null;
             book = Book.builder()
                     .id(bookDto.getId())
@@ -100,7 +109,7 @@ public class BookServiceImpl implements GenericCrudService<BookDto, Integer> {
                     .numberOfPage(book.getNumberOfPage())
                     .stockCount(book.getStockCount())
                     .rating(book.getRating())
-                    .published_date(new SimpleDateFormat("yyyy-MM-dd").format(book.getPublished_date()))
+                    .published_date(new SimpleDateFormat("dd-MM-yyyy").format(book.getPublished_date()))
                     .coverPhotoPath(fileStorageComponent.base64Encoded(book.getCoverPhotoPath()))
                     .authorList(book.getAuthorSet())
                     .bookCode(book.getBookCode())
@@ -120,8 +129,38 @@ public class BookServiceImpl implements GenericCrudService<BookDto, Integer> {
     }
 
     @Override
-    public void update(BookDto bookDto) {
+    public void update(BookDto bookDto) throws IOException, ParseException {
+       Book book= bookRepo.findById(bookDto.getId()).get();
+           if (!bookDto.getMultipartFile().isEmpty()) {
+               ResponseDto responseDto = FileStorageComponent.storeFile(bookDto.getMultipartFile());
+               if (responseDto.isStatus()){
+                   bookRepo.updateBookCoverPath(bookDto.getId(),responseDto.getMessage());
+               }
+           }
+            if ( ! book.getName().equals(bookDto.getName())){
+                bookRepo.updateBookName(bookDto.getId(),bookDto.getName());
+            }
+            if (! book.getIsbn().equals(bookDto.getIsbn())){
+                bookRepo.updateBookISbn(bookDto.getId(),bookDto.getIsbn());
+            }
+            if (! book.getPublished_date().equals(bookDto.getPublished_date())){
+                bookRepo.updateBookPublishedDate(bookDto.getId(),
+                        new SimpleDateFormat("dd-MM-yyyy").parse(bookDto.getPublished_date()));
+            }
+            if ( book.getRating() != bookDto.getRating()){
+                bookRepo.updateBookRating(bookDto.getId(),bookDto.getRating());
+            }
 
+            if (book.getNumberOfPage() != bookDto.getNumberOfPage()){
+                bookRepo.updateBookPage(bookDto.getId(),bookDto.getNumberOfPage());
+            }
+//            if (! book.getBookCode().equals(bookDto.getBookCode())){
+//
+//             }
+////
+//            if (book.getStockCount() != bookDto.getStockCount()){
+//                bookRepo.updateBookStock(bookDto.getId(),bookDto.getStockCount());
+//            }
     }
 
     public void updateBookStock( Integer bookId ,Integer stackValue){

@@ -73,12 +73,16 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void update(AuthorDto authorDto) {
+        String AuthorOldEmail = authorRepo.findById(authorDto.getId()).get().getEmail();
         Integer id = authorDto.getId();
         authorRepo.updateName(authorDto.getName(), id);
         authorRepo.updateEmail(authorDto.getEmail(), id);
         authorRepo.updateMobile(authorDto.getMobile_number(), id);
 
+        if (!(authorRepo.findById(authorDto.getId()).get()
+                .getEmail().equals(AuthorOldEmail))){
+            mailSend.sendMail(authorDto);
+        }
     }
-
 
 }

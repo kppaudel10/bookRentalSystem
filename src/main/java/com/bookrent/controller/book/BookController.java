@@ -47,9 +47,9 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String getBookAdd( @ModelAttribute("bookDto") BookDto bookDto
-                             ,Model model) {
-//        if (!bindingResult.hasErrors()) {
+    public String getBookAdd(@Valid @ModelAttribute("bookDto") BookDto bookDto
+                             ,BindingResult bindingResult,Model model) {
+        if (!bindingResult.hasErrors()) {
             try {
                 //save into database
                 BookDto bookDto1 = bookService.save(bookDto);
@@ -73,14 +73,14 @@ public class BookController {
             } catch (Exception e) {
                 System.out.println(e);
                 model.addAttribute("message", "Book creation failed.");
-//            }
+            }
         }
 //
-//        model.addAttribute("bookDto", bookDto);
-//        model.addAttribute("categoryList", categoryService.findAll());
-//        model.addAttribute("authorList", authorService.findAll());
-//        return "book/createbook";
-        return "redirect:/book/home";
+        model.addAttribute("bookDto", bookDto);
+        model.addAttribute("categoryList", categoryService.findAll());
+        model.addAttribute("authorList", authorService.findAll());
+        return "book/createbook";
+//        return "redirect:/book/home";
     }
 
     @GetMapping("/view/{id}")
@@ -107,5 +107,15 @@ public class BookController {
         model.addAttribute("authorList", authorService.findAll());
 //        return "redirect:/book/home";
         return "book/updatebook";
+    }
+
+    @PostMapping("/update")
+    public String getBookUpdatePage(@ModelAttribute("bookDto") BookDto bookDto){
+        try {
+            bookService.update(bookDto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/book/home";
     }
 }
