@@ -47,4 +47,10 @@ public interface BookRepo extends JpaRepository<Book,Integer> {
     @Modifying(clearAutomatically = true)
     @Query(value = "update brs_book number_of_page set number_of_page = :number_of_page WHERE id = :book_id",nativeQuery = true)
     void updateBookPage(@Param("book_id") Integer book_id, @Param("number_of_page") Integer number_of_page);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update brs_book category_id set category_id  = :category_id  WHERE id = :book_id",nativeQuery = true)
+    void updateBookCategory(@Param("book_id") Integer book_id, @Param("category_id ") Integer category_id );
+
 }

@@ -87,7 +87,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void deleteById(Integer integer) throws IOException {
-
+//        transactionRepo.deleteById(integer);
+        //soft delete
+        transactionRepo.updateStatusAsDeleted(integer);
     }
 
     @Override

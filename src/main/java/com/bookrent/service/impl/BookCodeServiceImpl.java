@@ -4,6 +4,7 @@ import com.bookrent.entity.BookCode;
 import com.bookrent.enums.RentStatus;
 import com.bookrent.repo.bookCode.BookCodeRepo;
 import com.bookrent.service.bookCode.BookCodeService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class BookCodeServiceImpl implements BookCodeService {
 
     @Override
     public List<BookCode> findAll() {
-      return bookCodeRepo.findAll();
+      return bookCodeRepo.findAll(Sort.by(Sort.Direction.ASC,"id"));
     }
 
     @Override
@@ -61,7 +62,7 @@ public class BookCodeServiceImpl implements BookCodeService {
     }
 
     public List<BookCode> findAllNotRentedBookCode(){
-        List<BookCode> bookCodeList = bookCodeRepo.findAll();
+        List<BookCode> bookCodeList = bookCodeRepo.findAll(Sort.by(Sort.Direction.ASC,"id"));
 
         List<BookCode> notRentedBook = new ArrayList<>();
 
@@ -85,5 +86,16 @@ public class BookCodeServiceImpl implements BookCodeService {
           }
       }
         return bookCodeId;
+    }
+
+    public List<BookCode> findBookCodeByBookId(Integer bookId){
+        List<BookCode> bookCodeListByBookId = new ArrayList<>();
+       List<BookCode> bookCodeList= bookCodeRepo.findAll(Sort.by(Sort.Direction.ASC,"id"));
+       for (BookCode code : bookCodeList){
+           if (code.getBookId().equals(bookId) && code.getRentStatus().ordinal() == RentStatus.RETURN.ordinal()){
+               bookCodeListByBookId.add(code);
+           }
+       }
+       return bookCodeListByBookId;
     }
 }

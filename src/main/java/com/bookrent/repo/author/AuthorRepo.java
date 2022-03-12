@@ -28,4 +28,9 @@ public interface AuthorRepo extends JpaRepository<Author, Integer> {
             , nativeQuery = true)
     void updateMobile(@Param("mobile") String name, @Param("id") Integer id);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update brs_author status set status = :status where id = :id", nativeQuery = true)
+    void updateAuthorStatus(@Param("id") Integer id, @Param("status") Integer status);
+
 }

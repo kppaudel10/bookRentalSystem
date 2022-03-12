@@ -21,4 +21,9 @@ public interface TransactionRepo extends JpaRepository<Transaction, Integer> {
     @Modifying(clearAutomatically = true)
     @Query(value = "update brs_transaction return_date set return_date = :date where id = :id", nativeQuery = true)
     void updateReturnDate(@Param("date") Date date, @Param("id") Integer id);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update brs_transaction rent_status set rent_status = 2 where id = :id", nativeQuery = true)
+    void updateStatusAsDeleted(@Param("id") Integer id);
 }

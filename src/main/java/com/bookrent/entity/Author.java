@@ -1,5 +1,6 @@
 package com.bookrent.entity;
 
+import com.bookrent.enums.ActiveClosed;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,10 +23,16 @@ public class Author {
     @GeneratedValue(generator = "author_sequence", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "author_sequence", sequenceName = "author_sequence")
     private Integer id;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String email;
+
     @Column(nullable = false, length = 10)
     private String mobile_number;
+
+    @Column(nullable = false, name = "status")
+    private ActiveClosed activeClosed;
 }

@@ -73,4 +73,21 @@ public class RentBookController {
                 bookService.findById(transactionService.findById(id).getBookId()));
         return "transaction/rentbook/viewrentDetails";
     }
+
+    @GetMapping("/search")
+    public String getSearchBookPage(Model model){
+        model.addAttribute("bookList",bookService.findAll());
+        model.addAttribute("transactionDto",new TransactionDto());
+        return "transaction/rentbook/searchbook";
+    }
+    @PostMapping("/select")
+    public String getOtherSelectedPage(@ModelAttribute("transactionDto")
+                                                   TransactionDto transactionDto ,Model model) throws IOException {
+        model.addAttribute("bookCodeList",bookCodeService.findBookCodeByBookId(transactionDto.getBookId()));
+        model.addAttribute("memberList",memberService.findAll());
+        model.addAttribute("transactionDto",transactionDto);
+//        model.addAttribute("selectedBook",bookService.findById(
+//                transactionDto.getBookId()));
+        return "transaction/rentbook/rentbook";
+    }
 }

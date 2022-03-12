@@ -71,4 +71,10 @@ public class ReturnBookController {
         }
         return "redirect:/returnbook/home";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteReturnTransaction(@PathVariable Integer id) throws IOException {
+        transactionService.deleteById(id);
+        return "redirect:/returnbook/home";
+    }
 }

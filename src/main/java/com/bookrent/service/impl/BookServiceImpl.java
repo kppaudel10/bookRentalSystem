@@ -154,9 +154,9 @@ public class BookServiceImpl implements GenericCrudService<BookDto, Integer> {
             if (book.getNumberOfPage() != bookDto.getNumberOfPage()){
                 bookRepo.updateBookPage(bookDto.getId(),bookDto.getNumberOfPage());
             }
-//            if (! book.getBookCode().equals(bookDto.getBookCode())){
-//
-//             }
+//            if (book.getCategory().getId() != bookDto.getCategoryId() && bookDto.getCategoryId() !=null){
+//                bookRepo.updateBookCategory(bookDto.getId(),bookDto.getCategoryId());
+//            }
 ////
 //            if (book.getStockCount() != bookDto.getStockCount()){
 //                bookRepo.updateBookStock(bookDto.getId(),bookDto.getStockCount());
